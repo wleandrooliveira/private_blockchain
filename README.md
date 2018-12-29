@@ -1,4 +1,7 @@
 ##  Private Blockchain
+
+In this project was developing an private blockchain using libraries levelDB and crypto-js.
+This are based on Nodejs.
 ## Project specification
 https://review.udacity.com/#!/rubrics/2040/view
 
