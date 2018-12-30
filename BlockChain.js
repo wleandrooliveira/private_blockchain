@@ -63,7 +63,7 @@ class BlockChain {
       const heigh = await this.datastorage.getBlockHeightFromDATA()
   
       for (let i = 0; i < heigh; i++) {
-        this.getBlock(i).then((block) => {
+        await this.getBlock(i).then((block) => {
           isValidBlock = this.validateBlock(block.height)
   
           if (!isValidBlock) {

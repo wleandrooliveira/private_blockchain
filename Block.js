@@ -7,7 +7,7 @@ class Block {
       this.height = '';
       this.timeStamp = '';
       this.data = data;
-      this.previousBlockHash = '0x';
+      this.previousBlockHash = '';
       this.hash = '';
     }
   }
