@@ -28,6 +28,7 @@ setTimeout(function () {
   })(0);
 
 setTimeout(() => myBlockChain.validateChain(), 2000)
+
  
 /***********************************************
  ** Function to get the Height of the Chain ****

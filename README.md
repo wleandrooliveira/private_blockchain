@@ -20,7 +20,16 @@ npm install
 
 node index.js
 
+## Run Induced Errors Blocks
 
+access content file induceErrors.js
 
+edit call function on line 21 of file induceErrors.js induceInvalidHashLink(copyHeight,pasteHeight)
+
+Example: induceInvalidHashLink(1,3), save file induceErrors.js
+
+run node induceErrors.js 
+
+After run node index.js to see number of block errors.
 
  
