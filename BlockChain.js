@@ -54,21 +54,7 @@ class BlockChain {
     async getBlock(blockHeight) {
       return JSON.parse(await this.datastorage.getBlockFromDATA(blockHeight))
     }
-    /* async validateBlock(blockHeight) {
-      let block = await this.getBlock(blockHeight);
-      let blockHash = block.hash;
-      block.hash = '';
-      
-      let validBlockHash = SHA256(JSON.stringify(block)).toString();
   
-      if (blockHash === validBlockHash) {
-          return true;
-        } else {
-          console.log(`Block #${blockHeight} invalid hash: ${blockHash} <> ${validBlockHash}`);
-          return false;
-        }
-    } */
-
     // validate block
 
     validateBlock(blockheight) {
