@@ -5,6 +5,7 @@
 const BlockChain = require('./BlockChain.js');
 const Block = require('./Block.js');
 
+
 let myBlockChain = new BlockChain();
 
 setTimeout(function () {
@@ -14,7 +15,6 @@ setTimeout(function () {
 /******************************************
  ** Function for Create Tests Blocks   ****
  ******************************************/
-
 
 (function theLoop (i) {
 	setTimeout(function () {
@@ -27,8 +27,8 @@ setTimeout(function () {
 	}, 100);
   })(0);
 
-  setTimeout(() => myBlockChain.validateChain(), 2000)
-
+setTimeout(() => myBlockChain.validateChain(), 2000)
+ 
 /***********************************************
  ** Function to get the Height of the Chain ****
  ***********************************************/

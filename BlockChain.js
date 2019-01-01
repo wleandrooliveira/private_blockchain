@@ -33,6 +33,20 @@ class BlockChain {
       
       await this.datastorage.addBlockToDATA(newBlock.height, JSON.stringify(newBlock))
     }
+
+     //Empty Blockchain
+    async deleteAllBlocks() {
+      let self = this;
+      let i = 0;
+      self.datastorage.createReadStream().on('data', function (data){
+        self.datastorage.deleteBlockFromDATA(i);
+        console.log('Deleted Block#', i)
+        i++;
+      }).on('error', function (err) {
+        return console.log('Unable to read data stream!', err)
+      });
+    }
+
     async getBlockHeight() {
       return await this.datastorage.getBlockHeightFromDATA()
     }
@@ -40,7 +54,7 @@ class BlockChain {
     async getBlock(blockHeight) {
       return JSON.parse(await this.datastorage.getBlockFromDATA(blockHeight))
     }
-    async validateBlock(blockHeight) {
+    /* async validateBlock(blockHeight) {
       let block = await this.getBlock(blockHeight);
       let blockHash = block.hash;
       block.hash = '';
@@ -53,6 +67,26 @@ class BlockChain {
           console.log(`Block #${blockHeight} invalid hash: ${blockHash} <> ${validBlockHash}`);
           return false;
         }
+    } */
+
+    // validate block
+
+    validateBlock(blockheight) {
+      return new Promise((resolve, reject) => {
+        this.getBlock(blockheight).then((block)=>{
+          let blockHash = block.hash;
+          block.hash = '';
+          let validBlockHash = SHA256(JSON.stringify(block)).toString();
+          if (blockHash === validBlockHash) {
+            resolve(true);
+          } else {
+            reject('Block #' +blockheight+' invalid hash:\n' +blockHash+'<>'+validBlockHash);
+          }
+        }).catch((err) => {
+          console.log('validateBlock: Unable to get block #'+blockHeight);
+                reject(err);
+        })
+      })
     }
 
     async validateChain() {
@@ -62,7 +96,7 @@ class BlockChain {
   
       const heigh = await this.datastorage.getBlockHeightFromDATA()
   
-      for (let i = 0; i < heigh; i++) {
+      for (let i = 0; i <= heigh; i++) {
         await this.getBlock(i).then((block) => {
           isValidBlock = this.validateBlock(block.height)
   

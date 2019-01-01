@@ -20,34 +20,48 @@ class DataStorage {
         })
       })
     }
-
-    getBlockFromDATA(key) {
+    //Deleting Block by key
+    deleteBlockFromDATA(key) {
       let self = this;
       return new Promise((resolve, reject) => {
-        self.db.get(key, (error, value) => {
-          if (error) {
+        self.db.del(key, (error) =>{
+          if(error) {
             reject(error)
+            return console.log('Error deleting Block #' + key, err);
           }
-
           resolve(value)
         })
       })
     }
 
-    getBlockHeightFromDATA() {
-      let self = this;
-      return new Promise((resolve, reject) => {
-        let height = -1;
-
-        self.db.createReadStream().on('data', (data) => {
-          height++
-        }).on('error', (error) => {
+  getBlockFromDATA(key) {
+    let self = this;
+    return new Promise((resolve, reject) => {
+      self.db.get(key, (error, value) => {
+        if (error) {
           reject(error)
-        }).on('close', () => {
-          resolve(height)
-        })
+        }
+
+        resolve(value)
+
       })
-    }
+    })
+  }
+
+  getBlockHeightFromDATA() {
+    let self = this;
+    return new Promise((resolve, reject) => {
+      let height = -1;
+
+      self.db.createReadStream().on('data', (data) => {
+        height++
+      }).on('error', (error) => {
+        reject(error)
+      }).on('close', () => {
+        resolve(height)
+      })
+    })
+  }
 }
 
 module.exports = DataStorage;
